@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--Hoja de estilos-->
+    <link rel="stylesheet" href="styles/styles.css">
+    <!--Google Icons-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <title>pagina principal</title>
+</head>
+<body>
+    
+   <!-- === Barra Lateral === -->
+    <button class="btn custom" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+        <span class="material-symbols-outlined icono-menu">menu</span>
+    </button>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Menú</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group">
+                <!-- Enlaces del menú lateral -->
+                <li class="list-group-item"><a href="/home"></a><span class="material-symbols-outlined">home</span> Home</li>
+                <li class="list-group-item"><a href="/pedidos"></a><span class="material-symbols-outlined">shopping_cart</span> Pedidos</li>
+                <li class="list-group-item"><a href="/envios"></a><span class="material-symbols-outlined">local_shipping</span> Envíos</li>
+                <li class="list-group-item"><a href="/clientes"></a><span class="material-symbols-outlined">person</span> Clientes</li>
+                <li class="list-group-item"><a href="/productos"></a><span class="material-symbols-outlined">inventory</span> Productos</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- === Botón de Login === -->
+    <button type="button" class="btn btn-primary position-fixed top-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#loginModal">
+        Iniciar Sesion
+    </button>
+
+    <!-- Modal de Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario de Login -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="username" placeholder="Ingresa tu usuario" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === Resumen de Pedidos === -->
+    <div class="container py-5 mt-5">
+        <div class="row text-left mb-4">
+            <div class="col-12">
+                <h1>Resumen de Pedidos</h1> 
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-sm">
+                    <h2 class="display-4 mb-3">10</h2> 
+                    <p class="lead">Envíos pendientes</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-sm">
+                    <h2 class="display-4 mb-3">50</h2> 
+                    <p class="lead">Enviados</p> 
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-sm">
+                    <h2 class="display-4 mb-3">200</h2> 
+                    <p class="lead">Entregados</p> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === Clientes Recientes === -->
+    <div class="container py-5 mt-5 mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4 contenedor-clientes">
+            <h2 class="mb-0">Clientes Recientes</h2>
+            <button class="btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoClienteModal">
+                Añadir Cliente
+            </button>
+        </div>
+        <div class="row">
+            <!-- Cliente único -->
+            <div class="col-12 mb-4">
+                <div class="card shadow-sm cliente-card">
+                    <div class="card-body d-flex align-items-center card-ancha">
+                        <!-- Contenedor para ícono y nombre -->
+                        <div class="d-flex align-items-center">
+                            <span class="material-symbols-outlined">person</span>
+                            <div class="ms-3">
+                                <h5 class="card-title mb-1">John Smith</h5>
+                                <p class="card-text text-muted">Premium Client</p>
+                            </div>
+                        </div>
+            
+                        <!-- Botones a la derecha -->
+                        <div class="ms-auto d-flex align-items-center gap-2">
+                            <!-- Ver Detalles -->
+                            <button class="btn btn-view-details btn-detalles" data-bs-toggle="modal" data-bs-target="#clienteModal">
+                                Ver Detalles
+                            </button>
+            
+                            <!-- Editar -->
+                            <button class="btn btn-light" title="Editar">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+            
+                            <!-- Eliminar -->
+                            <button class="btn btn-danger" title="Eliminar">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === Modal de Detalles de Cliente Único === -->
+    <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clienteModalLabel">Detalles de John Smith</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-unstyled">
+                        <li><strong>ID:</strong>001</li>
+                        <li><strong>Nombre completo:</strong> John Smith</li>
+                        <li><strong>Teléfono:</strong> +34 123 456 789</li>
+                        <li><strong>Correo:</strong> john.smith@example.com</li>
+                        <li><strong>Dirección:</strong> Calle Falsa 123, Madrid, España</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Añadir Cliente -->
+    <div class="modal fade" id="nuevoClienteModal" tabindex="-1" aria-labelledby="nuevoClienteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+            <h5 class="modal-title" id="nuevoClienteModalLabel">Añadir Nuevo Cliente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            
+            <div class="modal-body">
+            <form id="formNuevoCliente">
+                <div class="mb-3">
+                <label for="clienteId" class="form-label">ID del Cliente</label>
+                <input type="text" class="form-control" id="clienteId" required>
+                </div>
+                <div class="mb-3">
+                <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+                <input type="text" class="form-control" id="nombreCompleto" required>
+                </div>
+                <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefono">
+                </div>
+                <div class="mb-3">
+                <label for="correo" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="correo">
+                </div>
+                <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccion">
+                </div>
+            </form>
+            </div>
+            
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" form="formNuevoCliente" class="btn btn-primary">Guardar Cliente</button>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+
+    <!--Pedidos recientes-->
+    <div class="container py-5 mt-5 mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4 contenedor-pedidos">
+            <h2 class="mb-0">Pedidos Recientes</h2>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">ID Pedido</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Precio Total</th>
+                  </tr>
+                </thead>
+                <tbody class="tbody"> 
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Juan</td>
+                    <td>Enviado</td>
+                    <td>100€</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="backends.js"></script>
+</body>
+</html>

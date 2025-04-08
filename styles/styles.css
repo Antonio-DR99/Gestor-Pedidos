@@ -1,0 +1,181 @@
+body{
+    background-color: #e0e0e0;
+}
+
+/* === Barra Lateral === */
+
+/* Estilo de los botones en la barra lateral */
+.btn.custom .icono-menu {
+    background-color: transparent;
+    border: none;
+    font-size: 2.5em;
+}
+
+/* Estilo de los elementos de la lista en la barra lateral */
+.list-group-item, .list-group-item a {
+    color: black;
+    font-size: 1.2em;
+    padding: 5%;
+    border: none;
+    transition: all 0.3s ease; 
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo de los iconos en los elementos de la lista */
+.list-group-item .material-symbols-outlined {
+    font-size: 2em; 
+    margin-right: 15px; 
+}
+
+/* Efecto hover en los elementos de la lista */
+.list-group-item:hover {
+    background-color: #444; 
+    cursor: pointer; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+    color:  white;
+}
+
+/* === Login === */
+
+/* Estilo del botón de login */
+.btn-primary {
+    background-color: #555; 
+    border: none; 
+    color: #fff; 
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    font-weight: 500; 
+    border-radius: 5px; 
+    box-shadow: none; 
+    transition: all 0.3s ease; 
+}
+
+/* Efecto hover en el botón de login */
+.btn-primary:hover {
+    background-color: #777; 
+    cursor: pointer; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+/* Estilo del contenido del modal */
+.modal-content {
+    border-radius: 10px; 
+}
+
+/* Estilo de los campos del formulario dentro del modal */
+.modal-body input {
+    margin-bottom: 15px; 
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    width: 100%; 
+    font-size: 1rem; 
+}
+
+/* Estilo de las etiquetas del formulario dentro del modal */
+.modal-body label {
+    font-size: 0.9rem;
+    color: #555; 
+}
+
+/* Estilo del botón dentro del modal */
+.modal-footer .btn-primary {
+    background-color: #555; 
+    border: none; 
+    color: #fff; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto hover en el botón del modal */
+.modal-footer .btn-primary:hover {
+    background-color: #777; 
+}
+
+/* === shipments-overview === */
+.container h1{
+    font-size: 2.1em;
+    margin-left: 2%;
+}
+.container {
+    background-color: #fff; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+}
+
+.card {
+    max-width: 350px; 
+    margin: 0 auto; 
+    border-radius: 8px; 
+    background-color: #f8f9fa; 
+    color: #000; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease; 
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+}
+
+.display-4 {
+    font-size: 2rem; 
+    font-weight: 700;
+    color: #000; 
+}
+
+.lead {
+    font-size: 1rem; 
+    color: #000; 
+}
+
+/* === Zona clientes recientes === */
+
+.cliente-card {
+    background-color: #f8f9fa;
+    max-width: 100%; 
+}
+
+
+
+.card-ancha {
+    width: 100%; 
+}
+
+.card {
+    width: 100%; 
+    margin: 0 auto; 
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+
+
+.btn-detalles{
+    background-color: transparent;
+    color: black;
+    border: 1px solid;
+}
+
+.btn-detalles:hover{
+    border: 1px solid;
+    background-color: #f8f9fa;
+}
+
+
+
+/* === Zona de envios ===*/
+.thead-dark th{
+    background-color:#f8f9fa;
+    text-align: center;
+
+}
+.tbody {
+    text-align: center;
+}
