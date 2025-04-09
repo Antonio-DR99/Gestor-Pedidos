@@ -15,71 +15,195 @@
     </head>
     <body>
             
-   <!-- === Barra Lateral === -->
-    <button class="btn custom" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
-        <span class="material-symbols-outlined icono-menu">menu</span>
-    </button>
+        <!-- === Barra Lateral === -->
+        <button class="btn custom" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
+            <span class="material-symbols-outlined icono-menu">menu</span>
+        </button>
 
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title">Menú</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menú</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="list-group">
+                    <!-- Enlaces del menú lateral -->
+                    <li class="list-group-item"><a href="./home.html"><span class="material-symbols-outlined">home</span> Home</a></li>
+                    <li class="list-group-item"><a href="./pedidos"><span class="material-symbols-outlined">shopping_cart</span> Pedidos</a></li>
+                    <li class="list-group-item"><a href="./envios"><span class="material-symbols-outlined">local_shipping</span> Envíos</a></li>
+                    <li class="list-group-item"><a href="./clientes"><span class="material-symbols-outlined">person</span> Clientes</a></li>
+                    <li class="list-group-item"><a href="./productos"><span class="material-symbols-outlined">inventory</span> Productos</a></li>
+                    <li class="list-group-item"><a href="./gestion-zonas.html"><span class="material-symbols-outlined">map</span> Gestion de zonas</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="offcanvas-body">
-            <ul class="list-group">
-                <!-- Enlaces del menú lateral -->
-                <li class="list-group-item"><a href="/dashboard.html"><span class="material-symbols-outlined">home</span> Home</a></li>
-                <li class="list-group-item"><a href="/pedidos"></a><span class="material-symbols-outlined">shopping_cart</span> Pedidos</li>
-                <li class="list-group-item"><a href="/envios"></a><span class="material-symbols-outlined">local_shipping</span> Envíos</li>
-                <li class="list-group-item"><a href="/clientes"></a><span class="material-symbols-outlined">person</span> Clientes</li>
-                <li class="list-group-item"><a href="/productos"></a><span class="material-symbols-outlined">inventory</span> Productos</li>
-                <li class="list-group-item"><a href="./gestion-zonas.html"><span class="material-symbols-outlined">map</span> Gestion de zonas</a></li>
-            </ul>
-        </div>
-    </div>
 
-    <!-- === Botón de Login === -->
-    <button type="button" class="btn btn-primary position-fixed top-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#loginModal">
-        Iniciar Sesion
-    </button>
+        <!-- === Botón de Login === -->
+        <button type="button" class="btn btn-primary position-fixed top-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#loginModal">
+            Iniciar Sesion
+        </button>
 
-    <!-- Modal de Login -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Iniciar sesión</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Formulario de Login -->
-                    <form>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Usuario</label>
-                            <input type="text" class="form-control" id="username" placeholder="Ingresa tu usuario" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button type="submit"    class="btn btn-primary">Iniciar sesión</button>
-                        </div>
-                    </form>
+        <!-- Modal de Login -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLabel">Iniciar sesión</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Formulario de Login -->
+                        <form>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="username" placeholder="Ingresa tu usuario" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit"    class="btn btn-primary">Iniciar sesión</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- === Zonas de envio === -->
+        <div class="titulo-envio">
+            <h1>ZONAS DE ENVIO</h1>
+            <h3 class="text-muted">Mira tus estadisticas de envios</h3>
+        </div>
+        <div class="container py-5 mt-5">
+            <div class="row text-left mb-4">
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 shadow-sm">
+                        <h2 class="display-4 mb-3">4</h2> 
+                        <p class="lead">Total de zonas</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 shadow-sm">
+                        <h2 class="display-4 mb-3"></h2> 
+                        <p class="lead">Total de pedidos</p> 
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 shadow-sm">
+                        <h2 class="display-4 mb-3"></h2> 
+                        <p class="lead">Zona más Activa</p> 
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-
-
-
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="backends.js"></script>
+        <!-- === Zonas de envio === -->
+        <div class="container mt-4 mb-4">
+            <div class="row g-4">
+                <!-- Tarjeta Zona A -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title mb-0">Zona A<small class="text-muted"></small></h5>
+                            </div>
+                
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">Tarifa</span>
+                                <span class="fw-bold text-dark">€</span>
+                            </div>
+                
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Pedidos (7d)</span>
+                                <span class="fw-bold text-dark"></span>
+                            </div>
+                            <div class="d-grid">
+                                <button class="custom-outline-btn">Ver Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Tarjeta Zona B -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title mb-0">Zona B<small class="text-muted"></small></h5>
+                            </div>
+                
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">Tarifa</span>
+                                <span class="fw-bold text-dark">€</span>
+                            </div>
+                
+                            <!-- Orders y cantidad en línea -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Pedidos (7d)</span>
+                                <span class="fw-bold text-dark"></span>
+                            </div>
+                            <div class="d-grid">
+                                <button class="custom-outline-btn">Ver Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta Zona C -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title mb-0">Zona C<small class="text-muted"></small></h5>
+                            </div>
+                
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">Tarifa</span>
+                                <span class="fw-bold text-dark">€</span>
+                            </div>
+                
+                            <!-- Orders y cantidad en línea -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Pedidos (7d)</span>
+                                <span class="fw-bold text-dark"></span>
+                            </div>
+                            <div class="d-grid">
+                                <button class="custom-outline-btn">Ver Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta Zona D -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title mb-0">Zona D<small class="text-muted"></small></h5>
+                            </div>
+                
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">Tarifa</span>
+                                <span class="fw-bold text-dark">€</span>
+                            </div>
+                
+                            <!-- Orders y cantidad en línea -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Pedidos (7d)</span>
+                                <span class="fw-bold text-dark"></span>
+                            </div>
+                            <div class="d-grid">
+                                <button class="custom-outline-btn">Ver Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="backends.js"></script>
     </body>
 </html>
