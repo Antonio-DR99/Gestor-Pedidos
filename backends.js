@@ -203,3 +203,101 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
+
+
+
+let productos = [
+    { id: 1, nombre: "Producto Ejemplo", enStock: true, precio: 100 }
+];
+
+let idAEliminar = null; // Guardará el ID del producto a eliminar
+
+function abrirModalAgregar() {
+    document.getElementById('productModalLabel').textContent = 'Añadir Producto';
+    document.getElementById('productForm').reset();
+    document.getElementById('productId').value = '';
+}
+
+function abrirModalEditar(id, nombre, enStock, precio) {
+    document.getElementById('productModalLabel').textContent = 'Editar Producto';
+    document.getElementById('productId').value = id;
+    document.getElementById('productName').value = nombre;
+    document.getElementById('productStock').value = enStock.toString();
+    document.getElementById('productPrice').value = precio;
+}
+
+function guardarProducto() {
+    const id = document.getElementById('productId').value;
+    const nombre = document.getElementById('productName').value;
+    const enStock = document.getElementById('productStock').value === 'true';
+    const precio = parseFloat(document.getElementById('productPrice').value);
+
+    if (!nombre || isNaN(precio)) {
+        alert('Por favor, completa todos los campos correctamente.');
+        return;
+    }
+
+    if (id) {
+        const indice = productos.findIndex(producto => producto.id === parseInt(id));
+        if (indice !== -1) {
+            productos[indice] = { id: parseInt(id), nombre, enStock, precio };
+        }
+    } else {
+        const nuevoId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
+        productos.push({ id: nuevoId, nombre, enStock, precio });
+    }
+
+    renderizarTabla();
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
+    modal.hide();
+}
+
+function mostrarModalEliminar(id) {
+    idAEliminar = id;
+    const deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    deleteModal.show();
+}
+
+document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+    if (idAEliminar !== null) {
+        productos = productos.filter(producto => producto.id !== idAEliminar);
+        renderizarTabla();
+        idAEliminar = null;
+    }
+    const deleteModal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
+    deleteModal.hide();
+});
+
+function renderizarTabla() {
+    const tbody = document.querySelector('.tbody');
+    tbody.innerHTML = '';
+
+    productos.forEach(producto => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${producto.id}</td>
+            <td>${producto.nombre}</td>
+            <td>${producto.enStock ? 'Sí' : 'No'}</td>
+            <td>${producto.precio.toFixed(2)}€</td>
+            <td class="text-center">
+                <div class="btn-group" role="group">
+                    <button class="custom-outline-btn edit btn btn-sm mx-1" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#productModal" 
+                            onclick="abrirModalEditar(${producto.id}, '${producto.nombre}', ${producto.enStock}, ${producto.precio})">
+                        Editar
+                    </button>
+                    <button class="custom-outline-btn delete btn btn-sm mx-1" 
+                            onclick="mostrarModalEliminar(${producto.id})">
+                        Eliminar
+                    </button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(fila);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', renderizarTabla);

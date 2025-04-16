@@ -170,17 +170,17 @@ body{
 
 
 
-/* === Zona de envios ===*/
-.table th{
-    background-color:#f8f9fa;
+/* Estilos proporcionados por el usuario */
+.table th {
+    background-color: #f8f9fa;
     text-align: center;
-
 }
+
 .tbody {
     text-align: center;
 }
 
-.titulo-envio{
+.titulo-envio {
     margin-left: 10%;
 }
 
@@ -194,13 +194,45 @@ body{
     transition: all 0.2s ease;
 }
 
+    
 .custom-outline-btn:hover {
-    background-color: transparent; /* Sigue siendo transparente */
+    background-color: transparent;
     border-color: black;
     color: #000;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); /* efecto sutil al pasar el ratón */
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
     transform: scale(1.02);
 }
 
+/* Variaciones para botones de Editar y Eliminar */
+.custom-outline-btn.edit {
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.custom-outline-btn.edit:hover {
+    border-color: #ffc107;
+    color: #ffc107;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+}
+
+.custom-outline-btn.delete {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.custom-outline-btn.delete:hover {
+    border-color: #dc3545;
+    color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
+}
+
+/* Estilo para el modal */
+.modal-content {
+    border-radius: 10px;
+}
+
+.form-label {
+    font-weight: 500;
+}
 
 
