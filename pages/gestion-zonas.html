@@ -73,8 +73,8 @@
 
         <!-- === Zonas de envio === -->
         <div class="titulo-envio">
-            <h1>ZONAS DE ENVIO</h1>
-            <h3 class="text-muted">Mira tus estadisticas de envios</h3>
+            <h1>GESTIÓN DE ZONAS</h1>
+            <h3 class="text-muted">Mira tus estadisticas</h3>
         </div>
         <div class="container py-5 mt-5">
             <div class="row text-left mb-4">
@@ -202,7 +202,83 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center mt-4">
+                <button id="add-zone-btn" class="btn btn-primary">Añadir Zona</button>
+            </div>
         </div>
+
+        <!-- Modal para editar zona -->
+        <div class="modal fade" id="zonaModal" tabindex="-1" aria-labelledby="zonaModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="zonaModalLabel">Editar Zona</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="zonaForm">
+                            <div class="mb-3">
+                                <label for="zonaNombre" class="form-label">Nombre de Zona</label>
+                                <input type="text" class="form-control" id="zonaNombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="zonaTarifa" class="form-label">Tarifa (€)</label>
+                                <input type="number" class="form-control" id="zonaTarifa" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="zonaPedidos" class="form-label">Pedidos (7d)</label>
+                                <input type="number" class="form-control" id="zonaPedidos" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="eliminarZonaBtn" class="btn btn-danger">Eliminar</button>
+                        <button id="guardarZonaBtn" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    <!-- Modal para añadir nueva zona -->
+    <div class="modal fade" id="addZoneModal" tabindex="-1" aria-labelledby="addZoneModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addZoneModalLabel">Añadir Nueva Zona</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addZoneForm">
+                        <div class="mb-3">
+                            <label for="nombreZona" class="form-label">Nombre de Zona</label>
+                            <input type="text" class="form-control" id="nombreZona" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tarifaZona" class="form-label">Tarifa (€)</label>
+                            <input type="number" class="form-control" id="tarifaZona" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pedidosZona" class="form-label">Pedidos (7d)</label>
+                            <input type="number" class="form-control" id="pedidosZona" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="guardarZonaBtnAdd" class="btn btn-primary">Guardar Zona</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  
+  
+
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="../backends.js"></script>
     </body>
