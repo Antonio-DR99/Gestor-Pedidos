@@ -1,4 +1,18 @@
-// === Función: Abre el modal y carga los datos para editar una zona ===
+// ================================================
+// SISTEMA DE GESTIÓN: ZONAS, PRODUCTOS, PEDIDOS, CLIENTES Y HOME
+// ================================================
+// Este script gestiona las funcionalidades de zonas, productos, pedidos, clientes y la página principal (home).
+// Cada sección del código está dedicada a una entidad específica y contiene funciones para agregar, editar, eliminar y renderizar datos.
+// Las funciones están diseñadas para interactuar con modales de Bootstrap y manipular el DOM para reflejar los cambios.
+
+// ================================================
+// SECCIÓN: GESTIÓN DE ZONAS
+// ================================================
+// Esta sección maneja la creación, edición y eliminación de zonas, representadas como tarjetas en el DOM.
+
+// Función: Abre el modal y carga los datos para editar una zona
+// Parámetros:
+//   - cardBody: El elemento del DOM que contiene los datos de la zona a editar
 function abrirModalEditarZona(cardBody) {
     const nombre = cardBody.querySelector('.card-title').textContent.trim();
     const tarifa = cardBody.querySelector('[id^="tarifa"]').textContent.replace('€', '').trim();
@@ -8,7 +22,6 @@ function abrirModalEditarZona(cardBody) {
     document.getElementById('zonaTarifa').value = tarifa;
     document.getElementById('zonaPedidos').value = pedidos;
 
-    // Guardamos la zona activa como dataset en el modal
     const modalEl = document.getElementById('zonaModal');
     modalEl.dataset.cardSelector = obtenerSelectorUnico(cardBody);
 
@@ -16,7 +29,7 @@ function abrirModalEditarZona(cardBody) {
     modal.show();
 }
 
-// === Función: Guarda los cambios editados ===
+// Función: Guarda los cambios editados de una zona
 function guardarCambiosZona() {
     const modalEl = document.getElementById('zonaModal');
     const cardBody = document.querySelector(modalEl.dataset.cardSelector);
@@ -34,7 +47,7 @@ function guardarCambiosZona() {
     cerrarModal();
 }
 
-// === Función: Elimina la zona ===
+// Función: Elimina la zona seleccionada
 function eliminarZona() {
     const modalEl = document.getElementById('zonaModal');
     const cardBody = document.querySelector(modalEl.dataset.cardSelector);
@@ -45,7 +58,7 @@ function eliminarZona() {
     cerrarModal();
 }
 
-// === Función: Cierra el modal de edición ===
+// Función: Cierra el modal de edición
 function cerrarModal() {
     const modalEl = document.getElementById('zonaModal');
     const modal = bootstrap.Modal.getInstance(modalEl);
@@ -53,27 +66,23 @@ function cerrarModal() {
     delete modalEl.dataset.cardSelector;
 }
 
-// === Función: Abre el modal para añadir una nueva zona ===
+// Función: Abre el modal para añadir una nueva zona
 function abrirModalAñadirZona() {
     const modal = new bootstrap.Modal(document.getElementById('addZoneModal'));
     modal.show();
 }
 
-// === Función: Guarda la nueva zona ===
+// Función: Guarda una nueva zona
 function guardarNuevaZona() {
     const nombreZona = document.getElementById('nombreZona').value;
     const tarifaZona = document.getElementById('tarifaZona').value;
     const pedidosZona = document.getElementById('pedidosZona').value;
 
     if (nombreZona && tarifaZona && pedidosZona) {
-        // Crear la tarjeta de la nueva zona
         const nuevaZona = crearTarjetaZona(nombreZona, tarifaZona, pedidosZona);
-
-        // Añadir la nueva zona al contenedor de zonas
         const contenedorZonas = document.querySelector('.container.mt-4.mb-4 .row.g-4');
         contenedorZonas.appendChild(nuevaZona);
 
-        // Añadir evento de edición al botón "Ver Detalles" de la nueva zona
         nuevaZona.querySelector('.custom-outline-btn').addEventListener('click', () => {
             const cardBody = nuevaZona.querySelector('.card-body');
             abrirModalEditarZona(cardBody);
@@ -86,18 +95,20 @@ function guardarNuevaZona() {
     }
 }
 
-// === Función: Cierra el modal de añadir zona ===
+// Función: Cierra el modal de añadir zona y limpia los campos
 function cerrarModalAñadirZona() {
     const modal = bootstrap.Modal.getInstance(document.getElementById('addZoneModal'));
     modal.hide();
-
-    // Limpiar los campos del formulario
     document.getElementById('nombreZona').value = '';
     document.getElementById('tarifaZona').value = '';
     document.getElementById('pedidosZona').value = '';
 }
 
-// === Función: Crear la tarjeta de la nueva zona ===
+// Función: Crea una tarjeta HTML para una nueva zona
+// Parámetros:
+//   - nombre: Nombre de la zona
+//   - tarifa: Tarifa de la zona
+//   - pedidos: Número de pedidos de la zona
 function crearTarjetaZona(nombre, tarifa, pedidos) {
     const col = document.createElement('div');
     col.classList.add('col-md-6');
@@ -108,9 +119,7 @@ function crearTarjetaZona(nombre, tarifa, pedidos) {
     const cardBody = document.createElement('div');
     cardBody.classList.add('card-body');
 
-    // Generar un ID único para tarifa y pedidos
     const idUnico = `zona-${nombre.toLowerCase().replace(/\s/g, '-')}-${Date.now()}`;
-
     cardBody.innerHTML = `
         <div class="d-flex justify-content-between align-items-start mb-2">
             <h5 class="card-title mb-0">${nombre}</h5>
@@ -130,11 +139,10 @@ function crearTarjetaZona(nombre, tarifa, pedidos) {
 
     card.appendChild(cardBody);
     col.appendChild(card);
-
     return col;
 }
 
-// === Función: Actualiza las estadísticas ===
+// Función: Actualiza las estadísticas de zonas (total de zonas, total de pedidos, zona más activa)
 function actualizarEstadisticas() {
     const zonas = document.querySelectorAll('.col-md-6 .card-body');
     const totalZonas = zonas.length;
@@ -157,7 +165,9 @@ function actualizarEstadisticas() {
     document.getElementById('zona-mas-activa').textContent = zonaMasActiva.nombre;
 }
 
-// === Función auxiliar: genera un selector único del cardBody ===
+// Función auxiliar: Genera un selector CSS único para un elemento
+// Parámetros:
+//   - element: El elemento del DOM para el cual generar el selector
 function obtenerSelectorUnico(element) {
     const path = [];
     while (element.parentElement) {
@@ -173,9 +183,8 @@ function obtenerSelectorUnico(element) {
     return path.join(' > ');
 }
 
-// === Función: Inicializa los eventos ===
+// Función: Inicializa los eventos de la página
 function inicializarEventos() {
-    // Eventos para botones de "Ver Detalles" en zonas existentes
     document.querySelectorAll('.custom-outline-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const cardBody = btn.closest('.card-body');
@@ -183,42 +192,41 @@ function inicializarEventos() {
         });
     });
 
-    // Evento para abrir el modal de añadir zona
     document.getElementById('add-zone-btn').addEventListener('click', abrirModalAñadirZona);
-
-    // Evento para guardar la nueva zona
     document.getElementById('guardarZonaBtnAdd').addEventListener('click', guardarNuevaZona);
-
-    // Evento para guardar cambios en el modal de edición
     document.getElementById('guardarZonaBtn').addEventListener('click', guardarCambiosZona);
-
-    // Evento para eliminar zona
     document.getElementById('eliminarZonaBtn').addEventListener('click', eliminarZona);
 }
 
-// Ejecutar cuando se carga la página
+// Ejecutar al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     inicializarEventos();
     actualizarEstadisticas();
 });
 
-
-
-
-
+// ================================================
+// SECCIÓN: GESTIÓN DE PRODUCTOS
+// ================================================
+// Esta sección maneja un array de productos y su representación en una tabla.
 
 let productos = [
     { id: 1, nombre: "Producto Ejemplo", stock: 5, precio: 100 }
 ];
-
 let idAEliminar = null;
 
+// Función: Abre el modal para agregar un nuevo producto
 function abrirModalAgregar() {
     document.getElementById('productModalLabel').textContent = 'Añadir Producto';
     document.getElementById('productForm').reset();
     document.getElementById('productId').value = '';
 }
 
+// Función: Abre el modal para editar un producto existente
+// Parámetros:
+//   - id: ID del producto
+//   - nombre: Nombre del producto
+//   - stock: Stock del producto
+//   - precio: Precio del producto
 function abrirModalEditar(id, nombre, stock, precio) {
     document.getElementById('productModalLabel').textContent = 'Editar Producto';
     document.getElementById('productId').value = id;
@@ -227,6 +235,7 @@ function abrirModalEditar(id, nombre, stock, precio) {
     document.getElementById('productPrice').value = precio;
 }
 
+// Función: Guarda un producto nuevo o editado
 function guardarProducto() {
     const id = document.getElementById('productId').value;
     const nombre = document.getElementById('productName').value;
@@ -249,17 +258,20 @@ function guardarProducto() {
     }
 
     renderizarTabla();
-
     const modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
     modal.hide();
 }
 
+// Función: Muestra el modal de confirmación para eliminar un producto
+// Parámetros:
+//   - id: ID del producto a eliminar
 function mostrarModalEliminar(id) {
     idAEliminar = id;
     const deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
     deleteModal.show();
 }
 
+// Evento para confirmar la eliminación de un producto
 document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
     if (idAEliminar !== null) {
         productos = productos.filter(producto => producto.id !== idAEliminar);
@@ -270,6 +282,7 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
     deleteModal.hide();
 });
 
+// Función: Renderiza la tabla de productos en el DOM
 function renderizarTabla() {
     const tbody = document.querySelector('.tbody');
     tbody.innerHTML = '';
@@ -300,114 +313,127 @@ function renderizarTabla() {
     });
 }
 
+// Renderizar la tabla al cargar la página
 document.addEventListener('DOMContentLoaded', renderizarTabla);
 
-
-
-
+// ================================================
+// SECCIÓN: GESTIÓN DE PEDIDOS
+// ================================================
+// Esta sección maneja un array de pedidos y su representación en una tabla.
 
 let pedidos = [];
 let pedidoEditando = null;
-let siguienteId = 1; // Contador para IDs autoincrementales
+let siguienteId = 1;
 
+// Función: Abre el modal para agregar un nuevo pedido
 function abrirModalAgregar() {
-  pedidoEditando = null;
-  document.getElementById('pedidoForm').reset();
-  document.getElementById('pedidoId').value = siguienteId;
+    pedidoEditando = null;
+    document.getElementById('pedidoForm').reset();
+    document.getElementById('pedidoId').value = siguienteId;
 }
 
+// Función: Guarda un pedido nuevo o editado
 function guardarPedido() {
-  const id = parseInt(document.getElementById('pedidoId').value);
-  const cliente = document.getElementById('pedidoCliente').value;
-  const fecha = document.getElementById('pedidoFecha').value;
-  const estado = document.getElementById('pedidoEstado').value;
-  const total = parseFloat(document.getElementById('pedidoTotal').value);
+    const id = parseInt(document.getElementById('pedidoId').value);
+    const cliente = document.getElementById('pedidoCliente').value;
+    const fecha = document.getElementById('pedidoFecha').value;
+    const estado = document.getElementById('pedidoEstado').value;
+    const total = parseFloat(document.getElementById('pedidoTotal').value);
 
-  if (!cliente || !fecha || !estado || isNaN(total)) {
-    alert("Todos los campos son obligatorios.");
-    return;
-  }
+    if (!cliente || !fecha || !estado || isNaN(total)) {
+        alert("Todos los campos son obligatorios.");
+        return;
+    }
 
-  const pedido = { id, cliente, fecha, estado, total };
+    const pedido = { id, cliente, fecha, estado, total };
 
-  if (pedidoEditando) {
-    const index = pedidos.findIndex(p => p.id === pedidoEditando.id);
-    pedidos[index] = pedido;
-  } else {
-    pedidos.push(pedido);
-    siguienteId++; // Incrementar el ID solo si es un nuevo pedido
-  }
+    if (pedidoEditando) {
+        const index = pedidos.findIndex(p => p.id === pedidoEditando.id);
+        pedidos[index] = pedido;
+    } else {
+        pedidos.push(pedido);
+        siguienteId++;
+    }
 
-  actualizarTabla();
-  bootstrap.Modal.getInstance(document.getElementById('pedidoModal')).hide();
+    actualizarTabla();
+    bootstrap.Modal.getInstance(document.getElementById('pedidoModal')).hide();
 }
 
+// Función: Actualiza la tabla de pedidos en el DOM
 function actualizarTabla() {
-  const tbody = document.querySelector('.tbody');
-  tbody.innerHTML = '';
+    const tbody = document.querySelector('.tbody');
+    tbody.innerHTML = '';
 
-  pedidos.forEach(pedido => {
-    const fila = document.createElement('tr');
-    fila.innerHTML = `
-      <td>${pedido.id}</td>
-      <td>${pedido.cliente}</td>
-      <td>${pedido.fecha}</td>
-      <td>${pedido.estado}</td>
-      <td>${pedido.total.toFixed(2)}</td>
-      <td>
-        <button class="custom-outline-btn edit btn btn-sm mx-1" onclick="editarPedido(${pedido.id})">Editar</button>
-        <button class="custom-outline-btn delete btn btn-sm mx-1" onclick="confirmarEliminacion(${pedido.id})">Eliminar</button>
-      </td>
-    `;
-    tbody.appendChild(fila);
-  });
+    pedidos.forEach(pedido => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${pedido.id}</td>
+            <td>${pedido.cliente}</td>
+            <td>${pedido.fecha}</td>
+            <td>${pedido.estado}</td>
+            <td>${pedido.total.toFixed(2)}€</td>
+            <td>
+                <button class="custom-outline-btn edit btn btn-sm mx-1" onclick="editarPedido(${pedido.id})">Editar</button>
+                <button class="custom-outline-btn delete btn btn-sm mx-1" onclick="confirmarEliminacion(${pedido.id})">Eliminar</button>
+            </td>
+        `;
+        tbody.appendChild(fila);
+    });
 }
 
+// Función: Abre el modal para editar un pedido existente
+// Parámetros:
+//   - id: ID del pedido a editar
 function editarPedido(id) {
-  const pedido = pedidos.find(p => p.id === id);
-  if (!pedido) return;
+    const pedido = pedidos.find(p => p.id === id);
+    if (!pedido) return;
 
-  pedidoEditando = pedido;
+    pedidoEditando = pedido;
 
-  document.getElementById('pedidoId').value = pedido.id;
-  document.getElementById('pedidoCliente').value = pedido.cliente;
-  document.getElementById('pedidoFecha').value = pedido.fecha;
-  document.getElementById('pedidoEstado').value = pedido.estado;
-  document.getElementById('pedidoTotal').value = pedido.total;
+    document.getElementById('pedidoId').value = pedido.id;
+    document.getElementById('pedidoCliente').value = pedido.cliente;
+    document.getElementById('pedidoFecha').value = pedido.fecha;
+    document.getElementById('pedidoEstado').value = pedido.estado;
+    document.getElementById('pedidoTotal').value = pedido.total;
 
-  const modal = new bootstrap.Modal(document.getElementById('pedidoModal'));
-  modal.show();
+    const modal = new bootstrap.Modal(document.getElementById('pedidoModal'));
+    modal.show();
 }
 
+// Función: Muestra el modal de confirmación para eliminar un pedido
+// Parámetros:
+//   - id: ID del pedido a eliminar
 function confirmarEliminacion(id) {
-  const btnConfirmar = document.getElementById('confirmDeleteBtn');
-  btnConfirmar.onclick = () => eliminarPedido(id);
+    const btnConfirmar = document.getElementById('confirmDeleteBtn');
+    btnConfirmar.onclick = () => eliminarPedido(id);
 
-  const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
-  modal.show();
+    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    modal.show();
 }
 
+// Función: Elimina un pedido del array y actualiza la tabla
+// Parámetros:
+//   - id: ID del pedido a eliminar
 function eliminarPedido(id) {
-  pedidos = pedidos.filter(p => p.id !== id);
-  actualizarTabla();
-  bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal')).hide();
+    pedidos = pedidos.filter(p => p.id !== id);
+    actualizarTabla();
+    bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal')).hide();
 }
 
+// Inicializar la tabla de pedidos al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
-  pedidos = [];
-  siguienteId = 1; // Reinicia el contador al cargar
-  actualizarTabla();
+    pedidos = [];
+    siguienteId = 1;
+    actualizarTabla();
 });
 
+// ================================================
+// SECCIÓN: GESTIÓN DE CLIENTES
+// ================================================
+// Esta sección maneja un array de clientes y su representación en una tabla.
 
-
-
-
-
-
-// Array para almacenar los clientes
 let clientes = [];
-let contadorId = 1; // Contador para las IDs secuenciales
+let contadorId = 1;
 
 // Constructor para el objeto Cliente
 class Cliente {
@@ -419,15 +445,24 @@ class Cliente {
     }
 }
 
-// Función para agregar un cliente
+// Función: Agrega un nuevo cliente
+// Parámetros:
+//   - nombre: Nombre del cliente
+//   - email: Email del cliente
+//   - telefono: Teléfono del cliente
 function agregarCliente(nombre, email, telefono) {
-    const id = contadorId++; // Usamos el contador para asignar el ID secuencial
+    const id = contadorId++;
     const nuevoCliente = new Cliente(id, nombre, email, telefono);
     clientes.push(nuevoCliente);
     renderizarClientes();
 }
 
-// Función para editar un cliente
+// Función: Edita un cliente existente
+// Parámetros:
+//   - id: ID del cliente
+//   - nombre: Nuevo nombre
+//   - email: Nuevo email
+//   - telefono: Nuevo teléfono
 function editarCliente(id, nombre, email, telefono) {
     const cliente = clientes.find(cliente => cliente.id === id);
     if (cliente) {
@@ -438,16 +473,19 @@ function editarCliente(id, nombre, email, telefono) {
     }
 }
 
-// Función para eliminar un cliente
+// Función: Elimina un cliente
+// Parámetros:
+//   - id: ID del cliente a eliminar
 function eliminarCliente(id) {
     clientes = clientes.filter(cliente => cliente.id !== id);
     renderizarClientes();
 }
 
-// Función para renderizar la lista de clientes en la tabla
+// Función: Renderiza la tabla de clientes en el DOM
 function renderizarClientes() {
     const tbody = document.querySelector('.tbody');
-    tbody.innerHTML = ''; // Limpiar la tabla antes de renderizar
+    tbody.innerHTML = '';
+
     clientes.forEach(cliente => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -464,7 +502,9 @@ function renderizarClientes() {
     });
 }
 
-// Función para abrir el modal de editar cliente
+// Función: Abre el modal para editar un cliente
+// Parámetros:
+//   - id: ID del cliente a editar
 function abrirModalEditar(id) {
     const cliente = clientes.find(cliente => cliente.id === id);
     if (cliente) {
@@ -473,13 +513,12 @@ function abrirModalEditar(id) {
         document.getElementById('clientEmail').value = cliente.email;
         document.getElementById('clientPhone').value = cliente.telefono;
 
-        // Abre el modal de Bootstrap usando su API nativa
         const myModal = new bootstrap.Modal(document.getElementById('clientModal'));
         myModal.show();
     }
 }
 
-// Función para guardar un cliente (nuevo o editado)
+// Función: Guarda un cliente nuevo o editado
 function guardarCliente() {
     const id = document.getElementById('clientId').value;
     const nombre = document.getElementById('clientName').value;
@@ -487,36 +526,31 @@ function guardarCliente() {
     const telefono = document.getElementById('clientPhone').value;
 
     if (id) {
-        // Editar cliente
         editarCliente(Number(id), nombre, email, telefono);
     } else {
-        // Agregar nuevo cliente
         agregarCliente(nombre, email, telefono);
     }
 
-    // Limpiar los campos del formulario después de guardar
-    document.getElementById('clientId').value = ''; // Limpiar ID (en caso de que sea un cliente nuevo)
+    document.getElementById('clientId').value = '';
     document.getElementById('clientName').value = '';
     document.getElementById('clientEmail').value = '';
     document.getElementById('clientPhone').value = '';
 
-    // Cerrar el modal
     const myModal = bootstrap.Modal.getInstance(document.getElementById('clientModal'));
     myModal.hide();
 }
 
-// Función para confirmar eliminación de un cliente
+// Función: Confirma la eliminación de un cliente
+// Parámetros:
+//   - id: ID del cliente a eliminar
 function confirmarEliminacion(id) {
     const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
     confirmDeleteBtn.onclick = function() {
         eliminarCliente(id);
-
-        // Cerrar el modal de confirmación de eliminación
         const deleteModal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
         deleteModal.hide();
     };
 
-    // Abre el modal de confirmación de eliminación
     const deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
     deleteModal.show();
 }
@@ -524,11 +558,12 @@ function confirmarEliminacion(id) {
 // Renderizar los clientes inicialmente
 renderizarClientes();
 
+// ================================================
+// SECCIÓN: FUNCIONES PARA EL HOME
+// ================================================
+// Esta sección actualiza dinámicamente la página principal con resúmenes de pedidos y clientes.
 
-
-// === Funciones para el Home ===
-
-// Actualizar Resumen de Pedidos
+// Función: Actualiza el resumen de pedidos (pendientes, enviados, entregados)
 function actualizarResumenPedidos() {
     const pendientes = pedidos.filter(p => p.estado === 'Pendiente').length;
     const enviados = pedidos.filter(p => p.estado === 'Enviado').length;
@@ -539,12 +574,11 @@ function actualizarResumenPedidos() {
     document.getElementById('entregados').textContent = entregados;
 }
 
-// Actualizar Clientes Recientes
+// Función: Actualiza la sección de clientes recientes
 function actualizarClientesRecientes() {
     const contenedor = document.getElementById('clientes-recientes');
-    contenedor.innerHTML = ''; // Limpiar el contenedor
+    contenedor.innerHTML = '';
 
-    // Obtener los últimos 3 clientes (ordenados por ID descendente)
     const clientesRecientes = [...clientes]
         .sort((a, b) => b.id - a.id)
         .slice(0, 3);
@@ -575,7 +609,9 @@ function actualizarClientesRecientes() {
     });
 }
 
-// Mostrar Detalles de Cliente en el Modal
+// Función: Muestra los detalles de un cliente en un modal
+// Parámetros:
+//   - id: ID del cliente
 function mostrarDetallesCliente(id) {
     const cliente = clientes.find(c => c.id === id);
     if (!cliente) return;
@@ -597,12 +633,11 @@ function mostrarDetallesCliente(id) {
     modal.show();
 }
 
-// Actualizar Pedidos Recientes
+// Función: Actualiza la tabla de pedidos recientes
 function actualizarPedidosRecientes() {
     const tbody = document.getElementById('pedidos-recientes');
-    tbody.innerHTML = ''; // Limpiar la tabla
+    tbody.innerHTML = '';
 
-    // Obtener los últimos 5 pedidos (ordenados por ID descendente)
     const pedidosRecientes = [...pedidos]
         .sort((a, b) => b.id - a.id)
         .slice(0, 5);
@@ -619,9 +654,8 @@ function actualizarPedidosRecientes() {
     });
 }
 
-// Inicializar el Home
+// Inicializar el home si estamos en home.html
 document.addEventListener('DOMContentLoaded', () => {
-    // Solo ejecutar estas funciones si estamos en home.html
     if (window.location.pathname.includes('home.html')) {
         actualizarResumenPedidos();
         actualizarClientesRecientes();
