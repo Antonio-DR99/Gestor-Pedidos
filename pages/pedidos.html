@@ -69,93 +69,98 @@
                 </div>
             </div>
         </div>
-
         <div class="titulo-envio">
-            <h1>PRODUCTOS</h1>
-            <h3 class="text-muted">Mira todos tus prodructos</h3>
-        </div>
-        <!-- Contenedor principal -->
-        <div class="container py-5 mt-5 mb-5">
+            <h1>PEDIDOS</h1>
+            <h3 class="text-muted">Mira todos tus pedidos</h3>
+          </div>
+          
+          <!-- Contenedor principal -->
+          <div class="container py-5 mt-5 mb-5">
             <div class="d-flex justify-content-between align-items-center mb-4 contenedor-pedidos">
-                <button class="custom-outline-btn" data-bs-toggle="modal" data-bs-target="#productModal" onclick="abrirModalAgregar()">Añadir Producto</button>
+              <button class="custom-outline-btn" data-bs-toggle="modal" data-bs-target="#pedidoModal" onclick="abrirModalAgregar()">Añadir Pedido</button>
             </div>
             <div class="row">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID Producto</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Stock</th>
-                            <th scope="col">Precio (€)</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="tbody">
-                        <!-- Filas se generan dinámicamente -->
-                    </tbody>
-                </table>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID Pedido</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Total (€)</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="tbody">
+                  <!-- Filas se generan dinámicamente -->
+                </tbody>
+              </table>
             </div>
-        </div>
-
-        <!-- Modal para Añadir/Editar Producto -->
-        <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+          </div>
+          
+          <!-- Modal para Añadir/Editar Pedido -->
+          <div class="modal fade" id="pedidoModal" tabindex="-1" aria-labelledby="pedidoModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="productModalLabel">Añadir Producto</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="productForm">
-                            <div class="mb-3">
-                                <label for="productId" class="form-label">ID Producto</label>
-                                <input type="text" class="form-control" id="productId" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="productName" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="productName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="productStock" class="form-label">Stock</label>
-                                <input type="number" class="form-control" id="productStock" min="0" required>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="productPrice" class="form-label">Precio (€)</label>
-                                <input type="number" class="form-control" id="productPrice" step="0.01" required>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="custom-outline-btn" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="custom-outline-btn" onclick="guardarProducto()">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal de confirmación de eliminación -->
-        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
+              <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteLabel">Confirmar Eliminación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                  <h5 class="modal-title" id="pedidoModalLabel">Añadir Pedido</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
-                ¿Estás seguro de que quieres eliminar este producto?
+                    <form id="pedidoForm">
+                        <div class="mb-3">
+                            <label for="pedidoId" class="form-label">ID Pedido</label>
+                            <input type="text" class="form-control" id="pedidoId" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pedidoCliente" class="form-label">Cliente</label>
+                            <input type="text" class="form-control" id="pedidoCliente" required>
+                        </div>
+                            <div class="mb-3">
+                            <label for="pedidoFecha" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="pedidoFecha" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pedidoEstado" class="form-label">Estado</label>
+                            <select class="form-select" id="pedidoEstado" required>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Enviado">Enviado</option>
+                                <option value="Entregado">Entregado</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pedidoTotal" class="form-label">Total (€)</label>
+                            <input type="number" class="form-control" id="pedidoTotal" step="0.01" required>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="custom-outline-btn" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="custom-outline-btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+                  <button type="button" class="custom-outline-btn" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="button" class="custom-outline-btn" onclick="guardarPedido()">Guardar</button>
                 </div>
+              </div>
             </div>
+          </div>
+          
+          <!-- Modal de confirmación de eliminación -->
+          <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="confirmDeleteLabel">Confirmar Eliminación</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                  ¿Estás seguro de que quieres eliminar este pedido?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="custom-outline-btn" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="custom-outline-btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+                </div>
+              </div>
             </div>
-        </div>
-  
-  
-
-        
+          </div>
+          
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="../backends.js"></script>
     </body>
