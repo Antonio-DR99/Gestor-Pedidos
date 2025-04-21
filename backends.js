@@ -525,3 +525,106 @@ function confirmarEliminacion(id) {
 renderizarClientes();
 
 
+
+// === Funciones para el Home ===
+
+// Actualizar Resumen de Pedidos
+function actualizarResumenPedidos() {
+    const pendientes = pedidos.filter(p => p.estado === 'Pendiente').length;
+    const enviados = pedidos.filter(p => p.estado === 'Enviado').length;
+    const entregados = pedidos.filter(p => p.estado === 'Entregado').length;
+
+    document.getElementById('pendientes').textContent = pendientes;
+    document.getElementById('enviados').textContent = enviados;
+    document.getElementById('entregados').textContent = entregados;
+}
+
+// Actualizar Clientes Recientes
+function actualizarClientesRecientes() {
+    const contenedor = document.getElementById('clientes-recientes');
+    contenedor.innerHTML = ''; // Limpiar el contenedor
+
+    // Obtener los últimos 3 clientes (ordenados por ID descendente)
+    const clientesRecientes = [...clientes]
+        .sort((a, b) => b.id - a.id)
+        .slice(0, 3);
+
+    clientesRecientes.forEach(cliente => {
+        const div = document.createElement('div');
+        div.classList.add('col-12', 'mb-4');
+        div.innerHTML = `
+            <div class="card shadow-sm cliente-card">
+                <div class="card-body d-flex align-items-center card-ancha">
+                    <div class="d-flex align-items-center">
+                        <span class="material-symbols-outlined">person</span>
+                        <div class="ms-3">
+                            <h5 class="card-title mb-1">${cliente.nombre}</h5>
+                            <p class="card-text text-muted">Cliente</p>
+                        </div>
+                    </div>
+                    <div class="ms-auto d-flex align-items-center gap-2">
+                        <button class="btn btn-view-details btn-detalles" 
+                                onclick="mostrarDetallesCliente(${cliente.id})">
+                            Ver Detalles
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        contenedor.appendChild(div);
+    });
+}
+
+// Mostrar Detalles de Cliente en el Modal
+function mostrarDetallesCliente(id) {
+    const cliente = clientes.find(c => c.id === id);
+    if (!cliente) return;
+
+    const modalTitle = document.getElementById('clienteModalLabel');
+    const modalBody = document.getElementById('detalles-cliente');
+
+    modalTitle.textContent = `Detalles de ${cliente.nombre}`;
+    modalBody.innerHTML = `
+        <ul class="list-unstyled">
+            <li><strong>ID:</strong> ${cliente.id}</li>
+            <li><strong>Nombre completo:</strong> ${cliente.nombre}</li>
+            <li><strong>Teléfono:</strong> ${cliente.telefono || 'No disponible'}</li>
+            <li><strong>Correo:</strong> ${cliente.email || 'No disponible'}</li>
+        </ul>
+    `;
+
+    const modal = new bootstrap.Modal(document.getElementById('clienteModal'));
+    modal.show();
+}
+
+// Actualizar Pedidos Recientes
+function actualizarPedidosRecientes() {
+    const tbody = document.getElementById('pedidos-recientes');
+    tbody.innerHTML = ''; // Limpiar la tabla
+
+    // Obtener los últimos 5 pedidos (ordenados por ID descendente)
+    const pedidosRecientes = [...pedidos]
+        .sort((a, b) => b.id - a.id)
+        .slice(0, 5);
+
+    pedidosRecientes.forEach(pedido => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${pedido.id}</td>
+            <td>${pedido.cliente}</td>
+            <td>${pedido.estado}</td>
+            <td>${pedido.total.toFixed(2)}€</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// Inicializar el Home
+document.addEventListener('DOMContentLoaded', () => {
+    // Solo ejecutar estas funciones si estamos en home.html
+    if (window.location.pathname.includes('home.html')) {
+        actualizarResumenPedidos();
+        actualizarClientesRecientes();
+        actualizarPedidosRecientes();
+    }
+});

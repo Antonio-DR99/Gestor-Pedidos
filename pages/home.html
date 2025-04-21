@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!--Hoja de estilos-->
     <link rel="stylesheet" href="../styles/styles.css">
-    <!--Google Icons-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-
     <title>Local</title>
 </head>
 <body>
-    
-   <!-- === Barra Lateral === -->
+    <!-- Barra Lateral (sin cambios) -->
     <button class="btn custom" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
         <span class="material-symbols-outlined icono-menu">menu</span>
     </button>
-
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMenu">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Menú</h5>
@@ -26,7 +20,6 @@
         </div>
         <div class="offcanvas-body">
             <ul class="list-group">
-                <!-- Enlaces del menú lateral -->
                 <li class="list-group-item"><a href="./home.html"><span class="material-symbols-outlined">home</span> Home</a></li>
                 <li class="list-group-item"><a href="./pedidos.html"><span class="material-symbols-outlined">shopping_cart</span> Pedidos</a></li>
                 <li class="list-group-item"><a href="./clientes.html"><span class="material-symbols-outlined">person</span> Clientes</a></li>
@@ -36,12 +29,10 @@
         </div>
     </div>
 
-    <!-- === Botón de Login === -->
+    <!-- Botón y Modal de Login (sin cambios) -->
     <button type="button" class="btn btn-primary position-fixed top-0 end-0 m-3" data-bs-toggle="modal" data-bs-target="#loginModal">
         Iniciar Sesion
     </button>
-
-    <!-- Modal de Login -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -50,7 +41,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Formulario de Login -->
                     <form>
                         <div class="mb-3">
                             <label for="username" class="form-label">Usuario</label>
@@ -69,133 +59,61 @@
         </div>
     </div>
 
-    <!-- === Resumen de Pedidos === -->
+    <!-- Resumen de Pedidos -->
     <div class="container py-5 mt-5">
         <div class="row text-left mb-4">
             <div class="col-12">
                 <h1>Resumen de Pedidos</h1> 
             </div>
         </div>
-        <div class="row text-center">
+        <div class="row text-center" id="resumen-pedidos">
             <div class="col-md-4 mb-4">
                 <div class="card p-4 shadow-sm">
-                    <h2 class="display-4 mb-3">10</h2> 
+                    <h2 class="display-4 mb-3" id="pendientes">0</h2> 
                     <p class="lead">Envíos pendientes</p>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card p-4 shadow-sm">
-                    <h2 class="display-4 mb-3">50</h2> 
+                    <h2 class="display-4 mb-3" id="enviados">0</h2> 
                     <p class="lead">Enviados</p> 
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card p-4 shadow-sm">
-                    <h2 class="display-4 mb-3">200</h2> 
+                    <h2 class="display-4 mb-3" id="entregados">0</h2> 
                     <p class="lead">Entregados</p> 
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- === Clientes Recientes === -->
+    <!-- Clientes Recientes -->
     <div class="container py-5 mt-5 mb-5">
         <div class="d-flex justify-content-between align-items-center mb-4 contenedor-clientes">
             <h2 class="mb-0">Clientes Recientes</h2>
-            
         </div>
-        <div class="row">
-            <!-- Cliente único -->
-            <div class="col-12 mb-4">
-                <div class="card shadow-sm cliente-card">
-                    <div class="card-body d-flex align-items-center card-ancha">
-                        <!-- Contenedor para ícono y nombre -->
-                        <div class="d-flex align-items-center">
-                            <span class="material-symbols-outlined">person</span>
-                            <div class="ms-3">
-                                <h5 class="card-title mb-1">John Smith</h5>
-                                <p class="card-text text-muted">Premium Client</p>
-                            </div>
-                        </div>
-            
-                        <!-- Botones a la derecha -->
-                        <div class="ms-auto d-flex align-items-center gap-2">
-                            <!-- Ver Detalles -->
-                            <button class="btn btn-view-details btn-detalles" data-bs-toggle="modal" data-bs-target="#clienteModal">
-                                Ver Detalles
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="clientes-recientes">
+            <!-- Las tarjetas de clientes se generarán dinámicamente -->
         </div>
     </div>
 
-    <!-- === Modal de Detalles de Cliente Único === -->
+    <!-- Modal de Detalles de Cliente -->
     <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="clienteModalLabel">Detalles de John Smith</h5>
+                    <h5 class="modal-title" id="clienteModalLabel">Detalles del Cliente</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <ul class="list-unstyled">
-                        <li><strong>ID:</strong>001</li>
-                        <li><strong>Nombre completo:</strong> John Smith</li>
-                        <li><strong>Teléfono:</strong> +34 123 456 789</li>
-                        <li><strong>Correo:</strong> john.smith@example.com</li>
-                        <li><strong>Dirección:</strong> Calle Falsa 123, Madrid, España</li>
-                    </ul>
+                <div class="modal-body" id="detalles-cliente">
+                    <!-- Los detalles se llenarán dinámicamente -->
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Modal Añadir Cliente -->
-    <div class="modal fade" id="nuevoClienteModal" tabindex="-1" aria-labelledby="nuevoClienteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            
-            <div class="modal-header">
-                <h5 class="modal-title" id="nuevoClienteModalLabel">Añadir Nuevo Cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            
-            <div class="modal-body">
-            <form id="formNuevoCliente">
-                <div class="mb-3">
-                <label for="clienteId" class="form-label">ID del Cliente</label>
-                <input type="text" class="form-control" id="clienteId" required>
-                </div>
-                <div class="mb-3">
-                <label for="nombreCompleto" class="form-label">Nombre Completo</label>
-                <input type="text" class="form-control" id="nombreCompleto" required>
-                </div>
-                <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="tel" class="form-control" id="telefono">
-                </div>
-                <div class="mb-3">
-                <label for="correo" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="correo">
-                </div>
-                <div class="mb-3">
-                <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="direccion">
-                </div>
-            </form>
-            </div>
-            
-            <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" form="formNuevoCliente" class="btn btn-primary">Guardar Cliente</button>
-            </div>
-            
-        </div>
         </div>
     </div>
 
-    <!--Pedidos recientes-->
+    <!-- Pedidos Recientes -->
     <div class="container py-5 mt-5 mb-5">
         <div class="d-flex justify-content-between align-items-center mb-4 contenedor-pedidos">
             <h2 class="mb-0">Pedidos Recientes</h2>
@@ -203,26 +121,19 @@
         <div class="row">
             <table class="table">
                 <thead>
-                  <tr>
+                    <tr>
                         <th scope="col">ID Pedido</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Precio Total</th>
                     </tr>
                 </thead>
-                <tbody class="tbody"> 
-                  <tr>
-                    <td>1</td>
-                    <td>Juan</td>
-                    <td>Enviado</td>
-                    <td>100€</td>
-                  </tr>
+                <tbody class="tbody" id="pedidos-recientes">
+                    <!-- Las filas se generarán dinámicamente -->
                 </tbody>
             </table>
         </div>
     </div>
-    
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="backends.js"></script>
