@@ -631,6 +631,19 @@ function actualizarResumenPedidos() {
 }
 
 // Función: Actualiza la sección de clientes recientes
+/**
+ * Updates the "clientes-recientes" container with the most recent clients.
+ * 
+ * This function retrieves the latest three clients from the `clientes` array,
+ * sorts them by their `id` in descending order, and dynamically generates
+ * HTML elements to display their information in the "clientes-recientes" section.
+ * 
+ * Each client card includes their name, a label indicating they are a client,
+ * and a "Ver Detalles" button that triggers the `mostrarDetallesCliente` function
+ * with the client's ID as an argument.
+ * 
+ * @throws {Error} If the "clientes-recientes" container is not found in the DOM.
+ */
 function actualizarClientesRecientes() {
     const contenedor = document.getElementById('clientes-recientes');
     contenedor.innerHTML = '';
