@@ -4,12 +4,10 @@
 // Este script gestiona las funcionalidades de zonas, productos, pedidos, clientes y la página principal (home).
 // Cada sección del código está dedicada a una entidad específica y contiene funciones para agregar, editar, eliminar y renderizar datos.
 // Las funciones están diseñadas para interactuar con modales de Bootstrap y manipular el DOM para reflejar los cambios.
-
 // ================================================
 // SECCIÓN: GESTIÓN DE ZONAS
 // ================================================
 // Esta sección maneja la creación, edición y eliminación de zonas, representadas como tarjetas en el DOM.
-
 // Función: Abre el modal y carga los datos para editar una zona
 // Parámetros:
 //   - cardBody: El elemento del DOM que contiene los datos de la zona a editar
@@ -44,6 +42,7 @@ function guardarCambiosZona() {
     cardBody.querySelector('[id^="pedidos"]').textContent = pedidos;
 
     actualizarEstadisticas();
+    guardarZonasEnLocalStorage();
     cerrarModal();
 }
 
@@ -55,6 +54,7 @@ function eliminarZona() {
 
     cardBody.closest('.col-md-6').remove();
     actualizarEstadisticas();
+    guardarZonasEnLocalStorage();
     cerrarModal();
 }
 
@@ -89,6 +89,7 @@ function guardarNuevaZona() {
         });
 
         actualizarEstadisticas();
+        guardarZonasEnLocalStorage();
         cerrarModalAñadirZona();
     } else {
         alert("Por favor, completa todos los campos.");
@@ -183,6 +184,36 @@ function obtenerSelectorUnico(element) {
     return path.join(' > ');
 }
 
+// Función: Guarda las zonas en el LocalStorage
+function guardarZonasEnLocalStorage() {
+    const zonas = [];
+    document.querySelectorAll('.col-md-6 .card-body').forEach(zona => {
+        const nombre = zona.querySelector('.card-title').textContent.trim();
+        const tarifa = parseFloat(zona.querySelector('[id^="tarifa"]').textContent.replace('€', '').trim());
+        const pedidos = parseInt(zona.querySelector('[id^="pedidos"]').textContent.trim());
+
+        zonas.push({ nombre, tarifa, pedidos });
+    });
+    localStorage.setItem('zonas', JSON.stringify(zonas));
+}
+
+// Función: Carga las zonas desde el LocalStorage
+function cargarZonasDesdeLocalStorage() {
+    const zonasGuardadas = JSON.parse(localStorage.getItem('zonas')) || [];
+    const contenedorZonas = document.querySelector('.container.mt-4.mb-4 .row.g-4');
+    contenedorZonas.innerHTML = ''; // Limpiar contenedor
+
+    zonasGuardadas.forEach(zona => {
+        const nuevaZona = crearTarjetaZona(zona.nombre, zona.tarifa, zona.pedidos);
+        contenedorZonas.appendChild(nuevaZona);
+
+        nuevaZona.querySelector('.custom-outline-btn').addEventListener('click', () => {
+            const cardBody = nuevaZona.querySelector('.card-body');
+            abrirModalEditarZona(cardBody);
+        });
+    });
+}
+
 // Función: Inicializa los eventos de la página
 function inicializarEventos() {
     document.querySelectorAll('.custom-outline-btn').forEach(btn => {
@@ -200,6 +231,7 @@ function inicializarEventos() {
 
 // Ejecutar al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
+    cargarZonasDesdeLocalStorage();
     inicializarEventos();
     actualizarEstadisticas();
 });
@@ -258,6 +290,7 @@ function guardarProducto() {
     }
 
     renderizarTabla();
+    guardarProductosEnLocalStorage();
     const modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
     modal.hide();
 }
@@ -276,6 +309,7 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
     if (idAEliminar !== null) {
         productos = productos.filter(producto => producto.id !== idAEliminar);
         renderizarTabla();
+        guardarProductosEnLocalStorage();
         idAEliminar = null;
     }
     const deleteModal = bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal'));
@@ -313,8 +347,23 @@ function renderizarTabla() {
     });
 }
 
+// Función: Guarda los productos en el LocalStorage
+function guardarProductosEnLocalStorage() {
+    localStorage.setItem('productos', JSON.stringify(productos));
+}
+
+// Función: Carga los productos desde el LocalStorage
+function cargarProductosDesdeLocalStorage() {
+    const productosGuardados = JSON.parse(localStorage.getItem('productos')) || [];
+    productos = productosGuardados;
+    renderizarTabla();
+}
+
 // Renderizar la tabla al cargar la página
-document.addEventListener('DOMContentLoaded', renderizarTabla);
+document.addEventListener('DOMContentLoaded', () => {
+    cargarProductosDesdeLocalStorage();
+    renderizarTabla();
+});
 
 // ================================================
 // SECCIÓN: GESTIÓN DE PEDIDOS
@@ -553,6 +602,13 @@ function confirmarEliminacion(id) {
 
     const deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
     deleteModal.show();
+}
+
+// Función: Guarda los clientes en el LocalStorage
+function guardarClientesEnLocalStorage() {
+    const clientesExistentes = JSON.parse(localStorage.getItem('clientes')) || [];
+    clientesExistentes.push(...clientes);
+    localStorage.setItem('clientes', JSON.stringify(clientesExistentes));
 }
 
 // Renderizar los clientes inicialmente
