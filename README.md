@@ -162,6 +162,3 @@ cd sistema-gestion-local
 
 ---
 
-## 🧾 Licencia
-
-Este proyecto está licenciado bajo la **Licencia MIT**. Consulta el archivo `LICENSE` para más información.
