@@ -543,8 +543,8 @@ function renderizarClientes() {
             <td>${cliente.email}</td>
             <td>${cliente.telefono}</td>
             <td>
-                <button class="btn btn-warning" onclick="abrirModalEditar(${cliente.id})">Editar</button>
-                <button class="btn btn-danger" onclick="confirmarEliminacion(${cliente.id})">Eliminar</button>
+                <button class="custom-outline-btn edit btn btn-sm mx-1" onclick="abrirModalEditar(${cliente.id})">Editar</button>
+                <button class="custom-outline-btn delete btn btn-sm mx-1" onclick="confirmarEliminacion(${cliente.id})">Eliminar</button>
             </td>
         `;
         tbody.appendChild(tr);
